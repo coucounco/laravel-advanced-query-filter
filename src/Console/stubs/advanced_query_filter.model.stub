@@ -1,0 +1,20 @@
+<?php
+namespace DummyNamespace;
+
+use DummyRootNamespaceExtensions\Filters\AdvancedQueryFilter;
+use DummyRootNamespaceExtensions\Filters\QueryFilterUrl;
+use Carbon\Carbon;
+use DummyModelNamespace\DummyModel;
+
+class DummyClass extends AdvancedQueryFilter
+{
+    public function __construct()
+    {
+        $this->defaultFilter = 'all';
+    }
+
+    public function query()
+    {
+        return DummyModel::query();
+    }
+}

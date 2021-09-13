@@ -1,0 +1,19 @@
+<?php
+namespace DummyNamespace;
+
+use DummyRootNamespaceExtensions\Filters\AdvancedQueryFilter;
+use DummyRootNamespaceExtensions\Filters\QueryFilterUrl;
+use Carbon\Carbon;
+
+class DummyClass extends AdvancedQueryFilter
+{
+    public function __construct()
+    {
+        $this->defaultFilter = 'all';
+    }
+
+    public function query()
+    {
+        throw new \Exception('Must implement the query() method.');
+    }
+}
