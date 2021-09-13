@@ -33,17 +33,10 @@ class CardsFilter extends FilterComponent
     {
         $filter = $this->getFilter();
 
-        $aqf->call($filter, $query);
-
         if (isset($filter)) {
-            if (method_exists($aqf, $filter)) {
-                $aqf->$filter($query);
-                $this->currentFilter = $filter;
-            }
-        } elseif (isset($this->defaultFilter)) {
-            if (method_exists($aqf, $this->defaultFilter)) {
-                $aqf->{$this->defaultFilter}($query);
-            }
+            $aqf->call($filter, $query);
+        } elseif ($aqf->defaults()->defaultFilter !== null) {
+            $aqf->call($aqf->defaults()->defaultFilter, $query);
         }
     }
 

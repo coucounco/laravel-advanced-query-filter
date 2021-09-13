@@ -24,6 +24,12 @@ abstract class AdvancedQueryFilter
 
     private $request = null;
 
+    public function call($method, ...$args) {
+        if(method_exists($this, $method)) {
+            $this->$method(...$args);
+        }
+    }
+
     public function filter()
     {
         $request = $this->request ?? request();
