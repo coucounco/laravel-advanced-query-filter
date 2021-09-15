@@ -32,11 +32,6 @@ class FilterService
         return $this->filters;
     }
 
-    public function registerFilterComponent($className) {
-        $filter = new $className();
-        $this->filters[$className] = $filter;
-    }
-
     /**
      * @param $name
      * @return null|FilterComponent
@@ -69,5 +64,11 @@ class FilterService
         foreach ($this->filters as $filter) {
             $filter->boot();
         }
+    }
+
+    public function registerFilterComponent($className) {
+        $filter = new $className();
+        $this->filters[$className] = $filter;
+        Blade::component('package-alert', $className);
     }
 }

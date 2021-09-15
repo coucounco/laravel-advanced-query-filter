@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "rohsyl\\LaravelAdvancedQueryFilter\\": "src"
+            "rohsyl\\LaravelAdvancedQueryFilter\\": "src/"
         },
         "files": [
             "helpers/helpers.php"
@@ -30,7 +30,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "rohsyl\\LaravelAdvancedQueryFilter\\Test\\": "tests"
+            "rohsyl\\LaravelAdvancedQueryFilter\\Test\\": "tests/"
         }
     },
     "extra": {

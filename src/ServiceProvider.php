@@ -15,6 +15,7 @@ use rohsyl\LaravelAdvancedQueryFilter\Components\MonthFilter;
 use rohsyl\LaravelAdvancedQueryFilter\Components\Pagination;
 use rohsyl\LaravelAdvancedQueryFilter\Components\PlainTextFilter;
 use rohsyl\LaravelAdvancedQueryFilter\Components\RangeFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Console\CreateAdvancedQueryFilterCommand;
 
 class ServiceProvider extends SP
 {
@@ -30,6 +31,12 @@ class ServiceProvider extends SP
 
     public function boot()
     {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CreateAdvancedQueryFilterCommand::class,
+            ]);
+        }
+
         Filters::boot();
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel_aqf');

@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Extensions\Filters\Console;
+namespace rohsyl\LaravelAdvancedQueryFilter\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
