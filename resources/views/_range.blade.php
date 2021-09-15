@@ -1,9 +1,11 @@
 @php
+    $value = \rohsyl\LaravelAdvancedQueryFilter\Filters::getFilter(\rohsyl\LaravelAdvancedQueryFilter\Components\RangeFilter::class)->value();
     $range = null;
+    $start = $value[0] ?? $start ?? null;
+    $end = $value[1] ?? $end ?? null;
     if(isset($start) && isset($end)) {
-        $range = $start->format(DATEFORMAT) . ',' . $end->format(DATEFORMAT);
+        $range = $start->format(\rohsyl\LaravelAdvancedQueryFilter\Filters::DATEFORMAT) . ',' . $end->format(\rohsyl\LaravelAdvancedQueryFilter\Filters::DATEFORMAT);
     }
-    $range = request()->has('range') && !empty(request()->input('range')) ? request()->range : $range;
 @endphp
 
 @if(!isset($inline) || !$inline)
@@ -73,7 +75,7 @@
             </div>
             @if (isset($range_field))
                 @php
-                    $selected = request()->has('range') && isset(request()->range_field) ? request()->range_field : [];
+                    $selected = $value[3] ?? [];
                 @endphp
                 <div class="col-lg-6">
                     {{ Form::cselect('range_field', $range_field, $selected, ['label' => __('Searchable range field')]) }}

@@ -1,16 +1,17 @@
 <?php
-
 namespace rohsyl\LaravelAdvancedQueryFilter;
 
-use App\Extensions\Filters\Export\FilterExporter;
-use Illuminate\Support\Carbon;
+use rohsyl\LaravelAdvancedQueryFilter\Export\FilterExporter;
 use Maatwebsite\Excel\Facades\Excel;
 use Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 abstract class AdvancedQueryFilter
 {
-
+    /**
+     * @var DefaultsBag Contains all default values
+     */
     private $defaults;
+
     protected $scopes = [];
     protected $pagination = null;
 
@@ -25,16 +26,9 @@ abstract class AdvancedQueryFilter
         $request = Filters::getRequest();
         $query = $this->query();
 
-
-
-        if ($request->has('plain')) {
-            $text = $request->input('plain');
-            if (isset($text) && ! empty($text)) {
-                $this->plain($query, $text);
-            }
+        foreach(Filters::getFilters() as $filter) {
+            $filter->filter($this, $query);
         }
-
-
 
         if (isset($this->scopes) && is_array($this->scopes) && ! empty($this->scopes)) {
             foreach ($this->scopes as $scope) {
@@ -74,7 +68,7 @@ abstract class AdvancedQueryFilter
                         $opt[0] ?? [],
                         $opt[1] ?? null
                     ),
-                    $opt[2] ?? $this->defaultExportFileName
+                    $opt[2] ?? $this->defaultExportFileName ?? 'export.csv'
                 );
             }
         }
@@ -159,6 +153,9 @@ abstract class AdvancedQueryFilter
         return $this;
     }
 
+    /**
+     * @return DefaultsBag
+     */
     public function defaults() {
         if(!isset($this->defaults)) {
             $this->defaults = new DefaultsBag();

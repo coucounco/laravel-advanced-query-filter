@@ -33,16 +33,7 @@ class CardFilter extends FilterComponent
         ]);
     }
 
-    public function boot()
-    {
-    }
-
-    public function name()
-    {
-    }
-
-    public function filter(AdvancedQueryFilter $aqf, Builder $query)
-    {
-        //
-    }
+    public function boot() {}
+    public function filter(AdvancedQueryFilter $aqf, Builder $query) {}
+    public function value() {}
 }

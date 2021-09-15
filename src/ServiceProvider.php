@@ -1,6 +1,7 @@
 <?php
 namespace rohsyl\LaravelAdvancedQueryFilter;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as SP;
 use rohsyl\LaravelAdvancedQueryFilter\Components\AccountingRangeFilter;
@@ -21,14 +22,10 @@ class ServiceProvider extends SP
         CardsFilter::class,
         ModelFilter::class,
         RangeFilter::class,
-        AccountingRangeFilter::class,
         MonthFilter::class,
         BetweenFilter::class,
         PlainTextFilter::class,
-        Export::class,
-        ExportPdf::class,
         ChecksFilter::class,
-        Pagination::class,
     ];
 
     public function boot()

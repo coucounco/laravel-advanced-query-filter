@@ -3,6 +3,7 @@
 namespace rohsyl\LaravelAdvancedQueryFilter;
 
 use Illuminate\Support\Facades\Blade;
+use rohsyl\LaravelAdvancedQueryFilter\Components\FilterComponent;
 
 class FilterService
 {
@@ -11,18 +12,15 @@ class FilterService
 
     public function __construct()
     {
+        $this->filters = [];
         $this->request = request();
     }
 
     public function filters($filters)
     {
-        $instances = [];
         foreach ($filters as $filter) {
-            $f = new $filter();
-            $instances[$filter] = $f;
+            $this->registerFilterComponent($filter);
         }
-        $this->filters = $instances;
-
         return $this;
     }
 
@@ -34,6 +32,15 @@ class FilterService
         return $this->filters;
     }
 
+    public function registerFilterComponent($className) {
+        $filter = new $className();
+        $this->filters[$className] = $filter;
+    }
+
+    /**
+     * @param $name
+     * @return null|FilterComponent
+     */
     public function getFilter($name) {
         return $this->filters[$name] ?? null;
     }
@@ -57,6 +64,8 @@ class FilterService
     {
         Blade::aliasComponent('laravel_aqf::_form', 'filters');
         Blade::include('laravel_aqf::_pagination', 'filterPagination');
+        Blade::include('laravel_aqf::_export', 'filterExport');
+        Blade::include('laravel_aqf::_export_pdf', 'filterExportPdf');
         foreach ($this->filters as $filter) {
             $filter->boot();
         }

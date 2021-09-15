@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Extensions\Filters\Export;
+namespace rohsyl\LaravelAdvancedQueryFilter\Export;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;

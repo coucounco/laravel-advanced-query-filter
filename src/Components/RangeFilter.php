@@ -66,8 +66,8 @@ class RangeFilter extends FilterComponent
     {
         $range = $this->request()->input('range');
         $dates = explode(',', $range);
-        $from = isset($dates[0]) && ! empty($dates[0]) ? Carbon::parse($dates[0], false) : null;
-        $to = isset($dates[1]) && ! empty($dates[1]) ? Carbon::parse($dates[1], false) : null;
+        $from = isset($dates[0]) && ! empty($dates[0]) ? Carbon::parse($dates[0]) : null;
+        $to = isset($dates[1]) && ! empty($dates[1]) ? Carbon::parse($dates[1]) : null;
         $range_field = $this->request()->input('range_field');
 
         return [$from, $to, $range_field];

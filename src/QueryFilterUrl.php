@@ -42,7 +42,7 @@ class QueryFilterUrl
         if (! isset($to)) {
             $to = $from;
         }
-        $range = $from->format(DATEFORMAT).','.$to->format(DATEFORMAT);
+        $range = $from->format(Filters::DATEFORMAT).','.$to->format(Filters::DATEFORMAT);
 
         return request()->url().'?'.Arr::query(array_merge(request()->query(), ['range' => $range]));
     }
@@ -116,7 +116,7 @@ class QueryFilterUrl
 
     public function range($from, $to)
     {
-        $this->query['range'] = $from->format(DATEFORMAT).','.$to->format(DATEFORMAT);
+        $this->query['range'] = $from->format(Filters::DATEFORMAT).','.$to->format(Filters::DATEFORMAT);
 
         return $this;
     }
