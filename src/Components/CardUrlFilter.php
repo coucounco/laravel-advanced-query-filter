@@ -2,7 +2,10 @@
 
 namespace rohsyl\LaravelAdvancedQueryFilter\Components;
 
-class CardUrlFilter implements FilterComponent
+use Illuminate\Database\Eloquent\Builder;
+use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+
+class CardUrlFilter extends FilterComponent
 {
     private $url;
     private $label;
@@ -20,19 +23,15 @@ class CardUrlFilter implements FilterComponent
      */
     public function render()
     {
-        return view('components.filter._card_url')->with([
+        return view('laravel_aqf::_card_url')->with([
             'url'   => $this->url,
             'label' => $this->label,
         ]);
     }
 
-    public function boot()
-    {
-        // TODO: Implement boot() method.
-    }
+    public function boot() {}
 
-    public function name()
-    {
-        // TODO: Implement value() method.
-    }
+    public function filter(AdvancedQueryFilter $aqf, Builder $query) {}
+
+    public function value() {}
 }

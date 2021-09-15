@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
 
-class CardFilter implements FilterComponent
+class CardFilter extends FilterComponent
 {
     private $filter;
     private $label;
@@ -35,16 +35,14 @@ class CardFilter implements FilterComponent
 
     public function boot()
     {
-        // TODO: Implement boot() method.
     }
 
     public function name()
     {
-        // TODO: Implement value() method.
     }
 
-    public function filter(AdvancedQueryFilter $aqf, Request $request, Builder $query)
+    public function filter(AdvancedQueryFilter $aqf, Builder $query)
     {
-        // TODO: Implement filter() method.
+        //
     }
 }

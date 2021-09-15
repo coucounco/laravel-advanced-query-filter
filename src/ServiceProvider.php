@@ -34,6 +34,8 @@ class ServiceProvider extends SP
     public function boot()
     {
         Filters::boot();
+
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel_aqf');
     }
 
     public function register()

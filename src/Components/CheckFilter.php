@@ -2,12 +2,15 @@
 
 namespace rohsyl\LaravelAdvancedQueryFilter\Components;
 
+use Illuminate\Database\Eloquent\Builder;
+use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+
 /**
  * Class CheckFilter.
  *
  * @author rohs
  */
-class CheckFilter implements FilterComponent
+class CheckFilter extends FilterComponent
 {
     private $check;
     private $label;
@@ -20,22 +23,19 @@ class CheckFilter implements FilterComponent
         $this->default = $default;
     }
 
-    public function boot()
-    {
-        // TODO: Implement boot() method.
-    }
-
-    public function name()
-    {
-        // TODO: Implement name() method.
-    }
 
     public function render()
     {
-        return view('components.filter._check')->with([
+        return view('laravel_aqf::_check')->with([
             'check'  => $this->check,
             'label'   => $this->label,
             'default' => $this->default,
         ]);
     }
+
+    public function boot() {}
+
+    public function filter(AdvancedQueryFilter $aqf, Builder $query) {}
+
+    public function value() {}
 }

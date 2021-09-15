@@ -11,7 +11,7 @@ class CardsFilter extends FilterComponent
 {
     public function boot()
     {
-        Blade::include('components.filter._cards', 'filterCards');
+        Blade::include('laravel_aqf::_cards', 'filterCards');
     }
 
     /**
@@ -24,14 +24,9 @@ class CardsFilter extends FilterComponent
         // TODO: Implement render() method.
     }
 
-    public function name()
-    {
-        return 'filter';
-    }
-
     public function filter(AdvancedQueryFilter $aqf, Builder $query)
     {
-        $filter = $this->getFilter();
+        $filter = $this->value();
 
         if (isset($filter)) {
             $aqf->call($filter, $query);
@@ -40,7 +35,7 @@ class CardsFilter extends FilterComponent
         }
     }
 
-    public function getFilter() {
+    public function value() {
         $filter = null;
         if ($this->request()->has('filter')) {
             $filter = $this->request()->input('filter');

@@ -12,9 +12,12 @@ abstract class FilterComponent implements Renderable
 {
     public abstract function boot();
 
-    public abstract function name();
-
     public abstract function filter(AdvancedQueryFilter $aqf, Builder $query);
+
+    /**
+     * @return string|array
+     */
+    public abstract function value();
 
     /**
      * @return Request

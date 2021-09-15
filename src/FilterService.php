@@ -19,7 +19,7 @@ class FilterService
         $instances = [];
         foreach ($filters as $filter) {
             $f = new $filter();
-            $instances[$f->name()] = $f;
+            $instances[$filter] = $f;
         }
         $this->filters = $instances;
 
@@ -55,7 +55,8 @@ class FilterService
 
     public function boot()
     {
-        Blade::aliasComponent('components.filter._form', 'filters');
+        Blade::aliasComponent('laravel_aqf::_form', 'filters');
+        Blade::include('laravel_aqf::_pagination', 'filterPagination');
         foreach ($this->filters as $filter) {
             $filter->boot();
         }

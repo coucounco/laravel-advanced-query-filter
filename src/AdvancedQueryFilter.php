@@ -9,20 +9,10 @@ use Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 abstract class AdvancedQueryFilter
 {
-    protected $defaultRangeFrom = null;
-    protected $defaultRangeTo = null;
-    protected $defaultFilter = null;
-    protected $defaultExportFileName = 'export.csv';
-    protected $defaultChecks = null;
-    protected $defaultMonthDates = null;
-    protected $pagination = null;
-    public $currentFilter = null;
 
     private $defaults;
-
     protected $scopes = [];
-
-    private $request = null;
+    protected $pagination = null;
 
     public function call($method, ...$args) {
         if(method_exists($this, $method)) {
@@ -32,64 +22,10 @@ abstract class AdvancedQueryFilter
 
     public function filter()
     {
-        $request = $this->request ?? request();
+        $request = Filters::getRequest();
         $query = $this->query();
 
-        if ($request->has('filter')) {
-            $filter = $request->input('filter');
 
-            if (method_exists($this, $filter)) {
-                $this->$filter($query);
-                $this->currentFilter = $filter;
-            }
-        } elseif (isset($this->defaultFilter)) {
-            if (method_exists($this, $this->defaultFilter)) {
-                $this->{$this->defaultFilter}($query);
-            }
-        }
-
-        if ($request->has('range')) {
-            $range = $this->getRangeDates();
-            $from = $range[0];
-            $to = $range[1];
-            $range_field = ($this->request ?? request())->input('range_field');
-            if (isset($from) && isset($to)) {
-                if (method_exists($this, $range_field)) {
-                    $this->$range_field($query, $from, $to);
-                } else {
-                    $this->range($query, $from, $to);
-                }
-            }
-        } elseif (isset($this->defaultRangeFrom) && isset($this->defaultRangeTo)) {
-            $this->range($query, $this->defaultRangeFrom, $this->defaultRangeTo);
-        }
-
-        if ($request->has('m')) {
-            $months = $request->input('m');
-            if (isset($months)) {
-                foreach ($months as $month => $values) {
-                    if (method_exists($this, $month)) {
-                        $date = Carbon::create($values['y'], $values['m'], 1);
-                        $this->$month($query, $date);
-                    }
-                }
-            }
-        } elseif (isset($this->defaultMonthDates) && ! empty($this->defaultMonthDates)) {
-            foreach ($this->defaultMonthDates as $month => $date) {
-                $this->$month($query, $date);
-            }
-        }
-
-        if ($request->has('between')) {
-            $betweens = $request->input('between');
-            if (isset($betweens)) {
-                foreach ($betweens as $between => $values) {
-                    if (method_exists($this, $between)) {
-                        $this->$between($query, $values['min'] ?? null, $values['max'] ?? null);
-                    }
-                }
-            }
-        }
 
         if ($request->has('plain')) {
             $text = $request->input('plain');
@@ -98,37 +34,7 @@ abstract class AdvancedQueryFilter
             }
         }
 
-        if ($request->has('model')) {
-            $models = $request->input('model');
-            if (isset($models)) {
-                foreach ($models as $model => $ids) {
-                    if (method_exists($this, $model)) {
-                        $this->$model($query, $ids);
-                    }
-                }
-            }
-        }
 
-        if ($request->has('check')) {
-            $checks = $request->input('check');
-            if (isset($checks)) {
-                $query->where(function ($query) use ($checks) {
-                    foreach ($checks as $check => $enable) {
-                        if (method_exists($this, $check) && isset($enable) && $enable) {
-                            $this->$check($query, $enable);
-                        }
-                    }
-                });
-            }
-        } elseif (isset($this->defaultChecks) && ! empty($this->defaultChecks)) {
-            $query->where(function ($query) {
-                foreach ($this->defaultChecks as $check => $enable) {
-                    if (method_exists($this, $check) && isset($enable) && $enable) {
-                        $this->$check($query, $enable);
-                    }
-                }
-            });
-        }
 
         if (isset($this->scopes) && is_array($this->scopes) && ! empty($this->scopes)) {
             foreach ($this->scopes as $scope) {
@@ -222,18 +128,6 @@ abstract class AdvancedQueryFilter
 
     /**
      * @param $query
-     * @param $from
-     * @param $to
-     * @return mixed
-     * @codeCoverageIgnore
-     */
-    public function range($query, $from, $to)
-    {
-        return $query;
-    }
-
-    /**
-     * @param $query
      * @param $table
      * @return bool
      *
@@ -249,58 +143,6 @@ abstract class AdvancedQueryFilter
         }
 
         return false;
-    }
-
-    /**
-     * @param $query
-     * @param $text
-     * @return mixed
-     * @codeCoverageIgnore
-     */
-    public function plain($query, $text)
-    {
-        return $query;
-    }
-
-    public function getRangeDates()
-    {
-        $range = ($this->request ?? request())->input('range');
-        $dates = explode(',', $range);
-        $from = isset($dates[0]) && ! empty($dates[0]) ? cdateparse($dates[0], false) : null;
-        $to = isset($dates[1]) && ! empty($dates[1]) ? cdateparse($dates[1], false) : null;
-
-        return [$from, $to];
-    }
-
-    public function getMonthDate($name, $returnDefault = false)
-    {
-        if (request()->has('m') && request()->input('m')[$name] !== null) {
-            $values = request()->m[$name];
-
-            return Carbon::create($values['y'], $values['m']);
-        }
-        if ($returnDefault && isset($this->defaultMonthDates[$name])) {
-            return $this->defaultMonthDates[$name];
-        }
-
-        return null;
-    }
-
-    public function getModelIds($name)
-    {
-        if (request()->has('model') && request()->input('model')[$name] !== null) {
-            return request()->input('model')[$name];
-        }
-
-        return null;
-    }
-
-    public function rangeDefaultDates($from, $to)
-    {
-        $this->defaultRangeFrom = $from;
-        $this->defaultRangeTo = $to;
-
-        return $this;
     }
 
     public function pagination($pagination)
@@ -322,22 +164,6 @@ abstract class AdvancedQueryFilter
             $this->defaults = new DefaultsBag();
         }
         return $this->defaults;
-    }
-
-    /**
-     * @return null
-     */
-    public function getDefaultRangeFrom()
-    {
-        return $this->defaultRangeFrom;
-    }
-
-    /**
-     * @return null
-     */
-    public function getDefaultRangeTo()
-    {
-        return $this->defaultRangeTo;
     }
 
     public function setRequest($request)
