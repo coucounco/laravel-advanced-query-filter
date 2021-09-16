@@ -33,7 +33,7 @@ class CheckFilter extends FilterComponent
         ]);
     }
 
-    public function boot() {}
-    public function filter(AdvancedQueryFilter $aqf, Builder $query) {}
-    public function value() {}
+    public static function boot() {}
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query) {}
+    public static function value() {}
 }

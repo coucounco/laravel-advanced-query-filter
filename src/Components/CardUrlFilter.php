@@ -29,9 +29,9 @@ class CardUrlFilter extends FilterComponent
         ]);
     }
 
-    public function boot() {}
+    public static function boot() {}
 
-    public function filter(AdvancedQueryFilter $aqf, Builder $query) {}
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query) {}
 
-    public function value() {}
+    public static function value() {}
 }

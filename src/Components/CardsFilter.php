@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Blade;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class CardsFilter extends FilterComponent
 {
-    public function boot()
+    public static function boot()
     {
-        Blade::include('laravel_aqf::_cards', 'filterCards');
+        Blade::component('aqf-cards', self::class);
+        Blade::component('aqf-card', CardFilter::class);
     }
 
     /**
@@ -21,12 +23,13 @@ class CardsFilter extends FilterComponent
      */
     public function render()
     {
-        // TODO: Implement render() method.
+        $selectedFilter = Filters::getFilter(CardsFilter::class)->value();
+        return view('laravel_aqf::_cards', compact('selectedFilter'));
     }
 
-    public function filter(AdvancedQueryFilter $aqf, Builder $query)
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query)
     {
-        $filter = $this->value();
+        $filter = self::value();
 
         if (isset($filter)) {
             $aqf->call($filter, $query);
@@ -35,10 +38,10 @@ class CardsFilter extends FilterComponent
         }
     }
 
-    public function value() {
+    public static function value() {
         $filter = null;
-        if ($this->request()->has('filter')) {
-            $filter = $this->request()->input('filter');
+        if (self::request()->has('filter')) {
+            $filter = self::request()->input('filter');
         }
 
         return $filter;

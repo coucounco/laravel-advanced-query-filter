@@ -8,9 +8,24 @@ use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
 
 class ModelFilter extends FilterComponent
 {
-    public function boot()
+
+    public $dark;
+    public $name;
+    public $multiselect;
+    public $list;
+
+    public function __construct($name, $list, $multiselect = true, $dark = false)
     {
-        Blade::include('laravel_aqf::_model', 'filterModel');
+        $this->dark = $dark;
+        $this->name = $name;
+        $this->multiselect = $multiselect;
+        $this->list = $list;
+    }
+
+
+    public static function boot()
+    {
+        Blade::component('aqf-model', self::class);
     }
 
     /**
@@ -20,12 +35,13 @@ class ModelFilter extends FilterComponent
      */
     public function render()
     {
-        // TODO: Implement render() method.
+        $selected = self::value();
+        return view('laravel_aqf::_model', compact('selected'));
     }
 
-    public function filter(AdvancedQueryFilter $aqf, Builder $query)
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query)
     {
-        $models = $this->value();
+        $models = self::value();
         if (isset($models)) {
             foreach ($models as $model => $ids) {
                 $aqf->call($model, $query, $ids);
@@ -33,11 +49,11 @@ class ModelFilter extends FilterComponent
         }
     }
 
-    public function value()
+    public static function value()
     {
         $models = null;
-        if ($this->request()->has('model')) {
-            $models = $this->request()->input('model');
+        if (self::request()->has('model')) {
+            $models = self::request()->input('model');
         }
         return $models;
     }

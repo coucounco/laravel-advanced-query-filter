@@ -8,9 +8,21 @@ use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
 
 class BetweenFilter extends FilterComponent
 {
-    public function boot()
+    public $name;
+    public $inline;
+    public $label;
+
+    public function __construct($name, $label = null, $inline = false)
     {
-        Blade::include('laravel_aqf::_between', 'filterBetween');
+        $this->name = $name;
+        $this->label = $label;
+        $this->inline = $inline;
+    }
+
+    public static function boot()
+    {
+        //Blade::include('laravel_aqf::_between', 'filterBetween');
+        Blade::component('aqf-between', self::class);
     }
 
     /**
@@ -20,11 +32,15 @@ class BetweenFilter extends FilterComponent
      */
     public function render()
     {
+        $value = self::value();
+        $min = $value[$this->name]['min'] ?? null;
+        $max = $value[$this->name]['max'] ?? null;
+        return view('laravel_aqf::_between', compact('min', 'max'));
     }
 
-    public function filter(AdvancedQueryFilter $aqf, Builder $query)
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query)
     {
-        $betweens = $this->value();
+        $betweens = self::value();
         if (isset($betweens)) {
             foreach ($betweens as $between => $values) {
                 $aqf->call($between, $query, $values['min'] ?? null, $values['max'] ?? null);
@@ -32,11 +48,11 @@ class BetweenFilter extends FilterComponent
         }
     }
 
-    public function value()
+    public static function value()
     {
         $betweens = null;
-        if ($this->request()->has('between')) {
-            $betweens = $this->request()->input('between');
+        if (self::request()->has('between')) {
+            $betweens = self::request()->input('between');
         }
         return $betweens;
     }

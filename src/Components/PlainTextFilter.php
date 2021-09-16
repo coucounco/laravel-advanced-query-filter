@@ -5,32 +5,44 @@ namespace rohsyl\LaravelAdvancedQueryFilter\Components;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class PlainTextFilter extends FilterComponent
 {
-    public function boot()
+
+    public $helper;
+    public $dark;
+
+    public function __construct($helper = null, $dark = false)
     {
-        Blade::include('laravel_aqf::_plain', 'filterPlain');
+        $this->helper = $helper;
+        $this->dark = $dark;
+    }
+
+
+    public static function boot()
+    {
+        Blade::component('aqf-plain', self::class);
     }
 
     public function render()
     {
-        // TODO: Implement render() method.
+        return view('laravel_aqf::_plain');
     }
 
-    public function filter(AdvancedQueryFilter $aqf, Builder $query)
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query)
     {
-        $text = $this->value();
+        $text = self::value();
         if (isset($text) && ! empty($text)) {
             $aqf->call('plain', $query, $text);
         }
     }
 
-    public function value()
+    public static function value()
     {
         $text = null;
-        if ($this->request()->has('plain')) {
-            $text = $this->request()->input('plain');
+        if (self::request()->has('plain')) {
+            $text = self::request()->input('plain');
         }
         return $text;
     }

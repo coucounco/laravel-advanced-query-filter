@@ -9,7 +9,7 @@ use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
 
 class RangeFilter extends FilterComponent
 {
-    public function boot()
+    public static function boot()
     {
         Blade::include('laravel_aqf::_range', 'filterRange');
     }
@@ -24,13 +24,12 @@ class RangeFilter extends FilterComponent
         // TODO: Implement render() method.
     }
 
-    public function filter(AdvancedQueryFilter $aqf, Builder $query)
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query)
     {
         // get the value from the query string and formated
-        $range = $this->value();
+        $range = self::value();
 
         if (isset($range) && !empty($range)) {
-            $range = $this->getRangeDates();
             $from = $range[0] ?? null;
             $to = $range[1] ?? null;
             $range_field = $range[2] ?? null;
@@ -50,11 +49,11 @@ class RangeFilter extends FilterComponent
     /**
      * @return array|null
      */
-    public function value()
+    public static function value()
     {
         $range = null;
-        if ($this->request()->has('range')) {
-            $range = $this->getRangeDates();
+        if (self::request()->has('range')) {
+            $range = self::getRangeDates();
         }
         return $range;
     }
@@ -62,13 +61,13 @@ class RangeFilter extends FilterComponent
     /**
      * @return array
      */
-    private function getRangeDates()
+    private static function getRangeDates()
     {
-        $range = $this->request()->input('range');
+        $range = self::request()->input('range');
         $dates = explode(',', $range);
         $from = isset($dates[0]) && ! empty($dates[0]) ? Carbon::parse($dates[0]) : null;
         $to = isset($dates[1]) && ! empty($dates[1]) ? Carbon::parse($dates[1]) : null;
-        $range_field = $this->request()->input('range_field');
+        $range_field = self::request()->input('range_field');
 
         return [$from, $to, $range_field];
     }

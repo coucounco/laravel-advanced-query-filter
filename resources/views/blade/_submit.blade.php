@@ -1,0 +1,1 @@
+<button class="btn @if(isset($dark) && $dark) btn-outline-primary @else btn-primary @endif" type="submit">{{ __('action.filter') }}</button>

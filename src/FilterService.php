@@ -3,6 +3,11 @@
 namespace rohsyl\LaravelAdvancedQueryFilter;
 
 use Illuminate\Support\Facades\Blade;
+use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\ButtonsComponent;
+use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\ClearComponent;
+use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\FormFiltersComponent;
+use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\MenuToggleComponent;
+use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\SubmitComponent;
 use rohsyl\LaravelAdvancedQueryFilter\Components\FilterComponent;
 
 class FilterService
@@ -57,18 +62,17 @@ class FilterService
 
     public function boot()
     {
-        Blade::aliasComponent('laravel_aqf::_form', 'filters');
-        Blade::include('laravel_aqf::_pagination', 'filterPagination');
-        Blade::include('laravel_aqf::_export', 'filterExport');
-        Blade::include('laravel_aqf::_export_pdf', 'filterExportPdf');
+        Blade::component('aqf-filters', FormFiltersComponent::class);
+        Blade::component('aqf-menu-toggle', MenuToggleComponent::class);
+        Blade::component('aqf-buttons', ButtonsComponent::class);
+        Blade::component('aqf-clear', ClearComponent::class);
+        Blade::component('aqf-submit', SubmitComponent::class);
         foreach ($this->filters as $filter) {
             $filter->boot();
         }
     }
 
     public function registerFilterComponent($className) {
-        $filter = new $className();
-        $this->filters[$className] = $filter;
-        Blade::component('package-alert', $className);
+        $this->filters[$className] = new FilterContainer($className);
     }
 }

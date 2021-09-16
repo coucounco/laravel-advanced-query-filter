@@ -1,0 +1,1 @@
+<a href="{{ QueryFilterUrl::cleanUrl() }}" class="btn @if(isset($dark) && $dark) btn-outline-secondary @else btn-light @endif">{{ __('action.clear') }}</a>

@@ -13,7 +13,7 @@ use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
  */
 class ChecksFilter extends FilterComponent
 {
-    public function boot()
+    public static function boot()
     {
         Blade::include('laravel_aqf::_checks', 'filterChecks');
     }
@@ -23,9 +23,9 @@ class ChecksFilter extends FilterComponent
         // TODO: Implement render() method.
     }
 
-    public function filter(AdvancedQueryFilter $aqf, Builder $query)
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query)
     {
-        $checks = $this->value();
+        $checks = self::value();
 
         if (isset($checks)) {
             $query->where(function ($query) use ($aqf, $checks) {
@@ -47,11 +47,11 @@ class ChecksFilter extends FilterComponent
         }
     }
 
-    public function value()
+    public static function value()
     {
         $checks = null;
-        if ($this->request()->has('check')) {
-            $checks = $this->request()->input('check');
+        if (self::request()->has('check')) {
+            $checks = self::request()->input('check');
         }
         return $checks;
     }

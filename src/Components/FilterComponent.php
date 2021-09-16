@@ -11,19 +11,19 @@ use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 abstract class FilterComponent extends Component implements Renderable
 {
-    public abstract function boot();
+    public static abstract function boot();
 
-    public abstract function filter(AdvancedQueryFilter $aqf, Builder $query);
+    public static abstract function filter(AdvancedQueryFilter $aqf, Builder $query);
 
     /**
      * @return string|array
      */
-    public abstract function value();
+    public static abstract function value();
 
     /**
      * @return Request
      */
-    public function request() {
+    public static function request() {
         return Filters::getRequest();
     }
 }

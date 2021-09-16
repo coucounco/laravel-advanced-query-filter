@@ -1,6 +1,8 @@
 <li class="nav-item col text-center">
-    <a class="p-lg-2 nav-link mb-4 mb-sm-0 @if(request()->has('filter') && request()->filter == $filter) active @endif @if(!request()->has('filter') && $default) active @endif border"
-       href="{{ QueryFilterUrl::filter($filter) }}" data-category-link="all">
-        {!! $label !!}<br>
+    <a class="p-lg-2 nav-link mb-4 mb-sm-0
+        @if(isset($selected) && $selected == $name) active @endif
+        @if(!isset($selected) && $default) active @endif border"
+       href="{{ QueryFilterUrl::filter($name) }}" data-category-link="{{ $name }}">
+        {{ $slot ?? $label }}
     </a>
 </li>

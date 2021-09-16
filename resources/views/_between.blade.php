@@ -1,12 +1,3 @@
-@php
-
-if(request()->has('between') && request()->input('between')[$name] !== null) {
-    $min = request()->input('between')[$name]['min'] ?? null;
-    $max = request()->input('between')[$name]['max'] ?? null;
-}
-
-@endphp
-
 @if(!isset($inline) || !$inline)
 <div class="block">
     <div class="block-content pt-3">

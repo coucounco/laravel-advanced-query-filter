@@ -1,22 +1,21 @@
 <?php
-
 namespace rohsyl\LaravelAdvancedQueryFilter\Components;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class CardFilter extends FilterComponent
 {
-    private $filter;
-    private $label;
-    private $default;
+    public $name;
+    public $default;
+    public $label;
 
-    public function __construct($filter, $label, $default = false)
+    public function __construct($name = 'all', $label = null, $default = false)
     {
-        $this->filter = $filter;
-        $this->label = $label;
+        $this->name = $name;
         $this->default = $default;
+        $this->label = $label;
     }
 
     /**
@@ -26,14 +25,15 @@ class CardFilter extends FilterComponent
      */
     public function render()
     {
-        return view('components.filter._card')->with([
-            'filter'  => $this->filter,
-            'label'   => $this->label,
+        $selected = Filters::getFilter(CardsFilter::class)->value();
+        return view('laravel_aqf::_card', compact('selected'))->with([
+            'name' => $this->name,
             'default' => $this->default,
+            'label' => $this->label,
         ]);
     }
 
-    public function boot() {}
-    public function filter(AdvancedQueryFilter $aqf, Builder $query) {}
-    public function value() {}
+    public static function boot() { }
+    public static function filter(AdvancedQueryFilter $aqf, Builder $query) {}
+    public static function value() {}
 }
