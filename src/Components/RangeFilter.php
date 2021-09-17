@@ -9,9 +9,22 @@ use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
 
 class RangeFilter extends FilterComponent
 {
+    public $inline;
+    public $start;
+    public $end;
+    public $range_field;
+
+    public function __construct($start = null, $end = null, $range_field = null, $inline = false)
+    {
+        $this->start = $start;
+        $this->end = $end;
+        $this->range_field = $range_field;
+        $this->inline = $inline;
+    }
+
     public static function boot()
     {
-        Blade::include('laravel_aqf::_range', 'filterRange');
+        Blade::component('aqf-range', self::class);
     }
 
     /**
@@ -21,7 +34,14 @@ class RangeFilter extends FilterComponent
      */
     public function render()
     {
-        // TODO: Implement render() method.
+        $value = self::value();
+        $range = null;
+        $start = $value[0] ?? $this->start ?? null;
+        $end = $value[1] ?? $this->end ?? null;
+        if(isset($start) && isset($end)) {
+            $range = $start->format(\rohsyl\LaravelAdvancedQueryFilter\Filters::DATEFORMAT) . ',' . $end->format(\rohsyl\LaravelAdvancedQueryFilter\Filters::DATEFORMAT);
+        }
+        return view('laravel_aqf::_range', compact('range', 'start', 'end'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

@@ -9,14 +9,33 @@ use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
 
 class MonthFilter extends FilterComponent
 {
+
+    public $dark;
+    public $name;
+
+    public function __construct($name, $dark = false)
+    {
+        $this->name = $name;
+        $this->dark = $dark;
+    }
+
     public static function boot()
     {
-        Blade::include('laravel_aqf::_month', 'filterMonth');
+        Blade::component('aqf-month', self::class);
     }
 
     public function render()
     {
-        // TODO: Implement render() method.
+        $selected = self::value()[$this->name] ?? [];
+        $selectedMonth = $selected['m'] ?? (isset($date) ? $date->month : null) ?? Carbon::today()->month;
+        $selectedYear = $selected['y'] ?? (isset($date) ? $date->year : null) ?? Carbon::today()->year;
+        $years = range(2017, Carbon::today()->year);
+        $years = array_combine($years, $years);
+        $months = [];
+        foreach(range(1, 12) as $i) {
+            $months[$i] = Carbon::create($selectedYear, $i, 1)->format('F');
+        }
+        return view('laravel_aqf::_month', compact('years', 'months', 'selectedYear', 'selectedMonth'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

@@ -1,11 +1,4 @@
 @php
-    $value = \rohsyl\LaravelAdvancedQueryFilter\Filters::getFilter(\rohsyl\LaravelAdvancedQueryFilter\Components\RangeFilter::class)->value();
-    $range = null;
-    $start = $value[0] ?? $start ?? null;
-    $end = $value[1] ?? $end ?? null;
-    if(isset($start) && isset($end)) {
-        $range = $start->format(\rohsyl\LaravelAdvancedQueryFilter\Filters::DATEFORMAT) . ',' . $end->format(\rohsyl\LaravelAdvancedQueryFilter\Filters::DATEFORMAT);
-    }
 @endphp
 
 @if(!isset($inline) || !$inline)
@@ -43,6 +36,9 @@
                                     @endif
                                     opens: 'lefts',
                                     ranges: {
+                                        @if(isset($config_ranges))
+                                            {{ $config_ranges }}
+                                        @endif
                                         'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
                                         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
                                         'This Year': [moment().startOf('year'), moment().endOf('year')],
