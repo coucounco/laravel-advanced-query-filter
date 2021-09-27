@@ -37,15 +37,24 @@ class ServiceProvider extends SP
             ]);
         }
 
-        Filters::boot();
+        $this->publishes([
+            __DIR__.'/../config/aqf.php' => config_path('aqf.php'),
+        ]);
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel_aqf');
+
+        Filters::boot();
     }
 
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/aqf.php', 'aqf'
+        );
+
         $this->app->bind(FilterService::class, function () {
             return (new FilterService())->filters($this->filters);
         });
+
     }
 }

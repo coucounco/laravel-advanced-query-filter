@@ -5,8 +5,11 @@ namespace rohsyl\LaravelAdvancedQueryFilter;
 use Illuminate\Support\Facades\Blade;
 use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\ButtonsComponent;
 use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\ClearComponent;
+use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\ExportComponent;
+use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\ExportPdfComponent;
 use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\FormFiltersComponent;
 use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\MenuToggleComponent;
+use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\PaginationComponent;
 use rohsyl\LaravelAdvancedQueryFilter\Components\Blade\SubmitComponent;
 use rohsyl\LaravelAdvancedQueryFilter\Components\FilterComponent;
 
@@ -67,6 +70,9 @@ class FilterService
         Blade::component('aqf-buttons', ButtonsComponent::class);
         Blade::component('aqf-clear', ClearComponent::class);
         Blade::component('aqf-submit', SubmitComponent::class);
+        Blade::component('aqf-pagination', PaginationComponent::class);
+        Blade::component('aqf-export', ExportComponent::class);
+        Blade::component('aqf-export-pdf', ExportPdfComponent::class);
         foreach ($this->filters as $filter) {
             $filter->boot();
         }

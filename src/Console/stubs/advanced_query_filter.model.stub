@@ -1,8 +1,8 @@
 <?php
 namespace DummyNamespace;
 
-use DummyRootNamespaceExtensions\Filters\AdvancedQueryFilter;
-use DummyRootNamespaceExtensions\Filters\QueryFilterUrl;
+use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\QueryFilterUrl;
 use Carbon\Carbon;
 use DummyModelNamespace\DummyModel;
 
@@ -10,7 +10,8 @@ class DummyClass extends AdvancedQueryFilter
 {
     public function __construct()
     {
-        $this->defaultFilter = 'all';
+        $this->pagination = null;
+        $this->defaults()->defaultFilter = 'all';
     }
 
     public function query()

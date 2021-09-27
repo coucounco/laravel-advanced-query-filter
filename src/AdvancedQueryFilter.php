@@ -15,6 +15,11 @@ abstract class AdvancedQueryFilter
     protected $scopes = [];
     protected $pagination = null;
 
+    public function __construct()
+    {
+        $this->pagination = config('aqf.pagination') ?? null;
+    }
+
     public function call($method, ...$args) {
         if(method_exists($this, $method)) {
             $this->$method(...$args);
@@ -55,7 +60,7 @@ abstract class AdvancedQueryFilter
     {
         $this->pagination = null;
         $data = $this->filter();
-        $request = $this->request ?? request();
+        $request = Filters::getRequest();
 
         if ($request->has('export')) {
             $export = $request->input('export');
@@ -80,7 +85,7 @@ abstract class AdvancedQueryFilter
     {
         $this->pagination = null;
         $data = $this->filter();
-        $request = $this->request ?? request();
+        $request = Filters::getRequest();
 
         if ($request->has('export_pdf')) {
             $export = $request->input('export_pdf');

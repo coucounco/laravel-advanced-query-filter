@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
 use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
-abstract class FilterComponent extends Component implements Renderable
+abstract class FilterComponent extends Component
 {
     public static abstract function boot();
 

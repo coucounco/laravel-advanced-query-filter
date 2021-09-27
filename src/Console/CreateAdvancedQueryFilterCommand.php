@@ -54,8 +54,8 @@ class CreateAdvancedQueryFilterCommand extends GeneratorCommand
     protected function replaceNamespace(&$stub, $name)
     {
         $stub = str_replace(
-            ['DummyNamespace', 'DummyRootNamespace', 'DummyModelNamespace'],
-            [$this->getNamespace($name), $this->rootNamespace(), $this->getModelNamespace()],
+            ['DummyNamespace', 'DummyModelNamespace'],
+            [$this->getNamespace($name), $this->getModelNamespace()],
             $stub
         );
 
