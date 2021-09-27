@@ -1,4 +1,4 @@
-<div class="block @if(isset($dark) && $dark) bg-primary-dark @endif">
+<div class="block">
     <div class="block-content pt-3">
         @php
             $selected = request()->has('model') && isset(request()->model[$name]) ? request()->model[$name] : [];

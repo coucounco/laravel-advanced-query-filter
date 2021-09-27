@@ -3,20 +3,19 @@
 namespace rohsyl\LaravelAdvancedQueryFilter\Components\Blade;
 
 use Illuminate\View\Component;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class ButtonsComponent extends Component
 {
     public $inline;
-    public $dark;
 
-    public function __construct($inline = false, $dark = false)
+    public function __construct($inline = false)
     {
         $this->inline = $inline;
-        $this->dark = $dark;
     }
 
     public function render()
     {
-        return view('laravel_aqf::blade._buttons');
+        return view('laravel_aqf::'.Filters::getTheme().'.blade._buttons');
     }
 }

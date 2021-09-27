@@ -15,8 +15,12 @@ use rohsyl\LaravelAdvancedQueryFilter\Components\FilterComponent;
 
 class FilterService
 {
+    /**
+     * @var FilterContainer[]
+     */
     private $filters;
     private $request;
+    private $themeName;
 
     public function __construct()
     {
@@ -33,7 +37,7 @@ class FilterService
     }
 
     /**
-     * @return mixed
+     * @return FilterContainer[]
      */
     public function getFilters()
     {
@@ -42,7 +46,7 @@ class FilterService
 
     /**
      * @param $name
-     * @return null|FilterComponent
+     * @return null|FilterContainer
      */
     public function getFilter($name) {
         return $this->filters[$name] ?? null;
@@ -76,6 +80,18 @@ class FilterService
         foreach ($this->filters as $filter) {
             $filter->boot();
         }
+    }
+
+    public function theme(string $name = null) {
+        $this->themeName = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTheme()
+    {
+        return $this->themeName ?? 'default';
     }
 
     public function registerFilterComponent($className) {

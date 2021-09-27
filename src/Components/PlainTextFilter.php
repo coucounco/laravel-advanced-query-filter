@@ -9,14 +9,11 @@ use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class PlainTextFilter extends FilterComponent
 {
-
     public $helper;
-    public $dark;
 
-    public function __construct($helper = null, $dark = false)
+    public function __construct($helper = null)
     {
         $this->helper = $helper;
-        $this->dark = $dark;
     }
 
 
@@ -27,7 +24,7 @@ class PlainTextFilter extends FilterComponent
 
     public function render()
     {
-        return view('laravel_aqf::_plain');
+        return view('laravel_aqf::'.Filters::getTheme().'._plain');
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

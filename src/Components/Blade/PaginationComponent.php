@@ -3,21 +3,20 @@
 namespace rohsyl\LaravelAdvancedQueryFilter\Components\Blade;
 
 use Illuminate\View\Component;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class PaginationComponent extends Component
 {
     public $default;
-    public $dark;
 
-    public function __construct($default = null, $dark = false)
+    public function __construct($default = null)
     {
         $this->default = isset($default) ? $default : (config('aqf.pagination') ?? 50);
-        $this->dark = $dark;
     }
 
     public function render()
     {
         $selectedPagination = request()->has('pagination') ? request()->input('pagination') : $this->default;
-        return view('laravel_aqf::blade._pagination', compact('selectedPagination'));
+        return view('laravel_aqf::'.Filters::getTheme().'.blade._pagination', compact('selectedPagination'));
     }
 }

@@ -3,22 +3,21 @@
 namespace rohsyl\LaravelAdvancedQueryFilter\Components\Blade;
 
 use Illuminate\View\Component;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class FormFiltersComponent extends Component
 {
     public $menuToggle;
     public $inline;
-    public $dark;
 
-    public function __construct($menuToggle = true, $inline = false, $dark = false)
+    public function __construct($menuToggle = true, $inline = false)
     {
         $this->menuToggle = $menuToggle;
         $this->inline = $inline;
-        $this->dark = $dark;
     }
 
     public function render()
     {
-        return view('laravel_aqf::blade._form');
+        return view('laravel_aqf::'.Filters::getTheme().'.blade._form');
     }
 }

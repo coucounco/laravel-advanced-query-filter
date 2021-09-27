@@ -3,6 +3,7 @@
 namespace rohsyl\LaravelAdvancedQueryFilter\Components\Blade;
 
 use Illuminate\View\Component;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class ExportComponent extends Component
 {
@@ -23,6 +24,6 @@ class ExportComponent extends Component
 
     public function render()
     {
-        return view('laravel_aqf::blade._export');
+        return view('laravel_aqf::'.Filters::getTheme().'.blade._export');
     }
 }

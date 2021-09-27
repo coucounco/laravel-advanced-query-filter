@@ -11,8 +11,10 @@ use rohsyl\LaravelAdvancedQueryFilter\Components\FilterComponent;
  * @method static void registerFilterComponent(string $className)
  * @method static void setRequest(Request $request)
  * @method static Request getRequest()
- * @method static FilterComponent[] getFilters()
- * @method static FilterComponent getFilter($name)
+ * @method static FilterContainer[] getFilters()
+ * @method static FilterContainer getFilter($name)
+ * @method static void theme(string $name)
+ * @method static string getTheme()
  *
  * @see FilterService
  */

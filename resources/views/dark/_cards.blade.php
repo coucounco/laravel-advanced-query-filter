@@ -1,4 +1,4 @@
-<div class="block block-rounded @if(isset($dark) && $dark) bg-primary-dark @endif mb-2">
+<div class="block block-rounded bg-primary-dark mb-2">
     <div class="block-content">
         @if(isset($value) && $value() !== null)
             {{ Form::hidden('filter', $value()) }}

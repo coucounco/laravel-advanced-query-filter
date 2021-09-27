@@ -4,6 +4,7 @@ namespace rohsyl\LaravelAdvancedQueryFilter\Components;
 
 use Illuminate\Database\Eloquent\Builder;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 /**
  * Class CheckFilter.
@@ -26,7 +27,7 @@ class CheckFilter extends FilterComponent
 
     public function render()
     {
-        return view('laravel_aqf::_check')->with([
+        return view('laravel_aqf::'.Filters::getTheme().'._check')->with([
             'check'  => $this->check,
             'label'   => $this->label,
             'default' => $this->default,

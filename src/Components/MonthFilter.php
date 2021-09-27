@@ -6,17 +6,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Blade;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class MonthFilter extends FilterComponent
 {
-
-    public $dark;
     public $name;
 
-    public function __construct($name, $dark = false)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->dark = $dark;
     }
 
     public static function boot()
@@ -35,7 +33,7 @@ class MonthFilter extends FilterComponent
         foreach(range(1, 12) as $i) {
             $months[$i] = Carbon::create($selectedYear, $i, 1)->format('F');
         }
-        return view('laravel_aqf::_month', compact('years', 'months', 'selectedYear', 'selectedMonth'));
+        return view('laravel_aqf::'.Filters::getTheme().'._month', compact('years', 'months', 'selectedYear', 'selectedMonth'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

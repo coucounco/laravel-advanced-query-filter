@@ -43,6 +43,10 @@ class ServiceProvider extends SP
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel_aqf');
 
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/vendor/laravel_aqf'),
+        ]);
+
         Filters::boot();
     }
 

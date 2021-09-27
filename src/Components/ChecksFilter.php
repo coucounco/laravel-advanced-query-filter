@@ -5,6 +5,7 @@ namespace rohsyl\LaravelAdvancedQueryFilter\Components;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 /**
  * Class ChecksFilter.
@@ -13,14 +14,16 @@ use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
  */
 class ChecksFilter extends FilterComponent
 {
-    public static function boot()
-    {
-        Blade::include('laravel_aqf::_checks', 'filterChecks');
-    }
 
     public function render()
     {
-        // TODO: Implement render() method.
+        return view('laravel_aqf::'.Filters::getTheme().'._checks');
+    }
+
+    public static function boot()
+    {
+        Blade::component('aqf-checks', self::class);
+        Blade::component('aqf-check', CheckFilter::class);
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

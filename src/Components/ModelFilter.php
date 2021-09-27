@@ -5,18 +5,16 @@ namespace rohsyl\LaravelAdvancedQueryFilter\Components;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class ModelFilter extends FilterComponent
 {
-
-    public $dark;
     public $name;
     public $multiselect;
     public $list;
 
-    public function __construct($name, $list, $multiselect = true, $dark = false)
+    public function __construct($name, $list, $multiselect = true)
     {
-        $this->dark = $dark;
         $this->name = $name;
         $this->multiselect = $multiselect;
         $this->list = $list;
@@ -36,7 +34,7 @@ class ModelFilter extends FilterComponent
     public function render()
     {
         $selected = self::value();
-        return view('laravel_aqf::_model', compact('selected'));
+        return view('laravel_aqf::'.Filters::getTheme().'._model', compact('selected'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

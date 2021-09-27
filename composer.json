@@ -40,7 +40,8 @@
             ],
             "aliases":
             {
-                "QueryFilterUrl": "rohsyl\\LaravelAdvancedQueryFilter\\QueryFilterUrl"
+                "QueryFilterUrl": "rohsyl\\LaravelAdvancedQueryFilter\\QueryFilterUrl",
+                "Filters": "rohsyl\\LaravelAdvancedQueryFilter\\Filters"
             }
         }
     }

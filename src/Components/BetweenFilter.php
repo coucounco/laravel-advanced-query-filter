@@ -5,6 +5,7 @@ namespace rohsyl\LaravelAdvancedQueryFilter\Components;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Blade;
 use rohsyl\LaravelAdvancedQueryFilter\AdvancedQueryFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Filters;
 
 class BetweenFilter extends FilterComponent
 {
@@ -35,7 +36,7 @@ class BetweenFilter extends FilterComponent
         $value = self::value();
         $min = $value[$this->name]['min'] ?? null;
         $max = $value[$this->name]['max'] ?? null;
-        return view('laravel_aqf::_between', compact('min', 'max'));
+        return view('laravel_aqf::'.Filters::getTheme().'._between', compact('min', 'max'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)
