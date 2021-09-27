@@ -3,6 +3,6 @@
         @if(isset($selected) && $selected == $name) active @endif
         @if(!isset($selected) && $default) active @endif border"
        href="{{ QueryFilterUrl::filter($name) }}" data-category-link="{{ $name }}">
-        {{ $slot ?? $label }}
+        {!! $slot ?? $label !!}
     </a>
 </li>
