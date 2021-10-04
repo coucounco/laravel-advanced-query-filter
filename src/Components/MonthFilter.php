@@ -11,10 +11,12 @@ use rohsyl\LaravelAdvancedQueryFilter\Filters;
 class MonthFilter extends FilterComponent
 {
     public $name;
+    public $date;
 
-    public function __construct($name)
+    public function __construct($name, $date = null)
     {
         $this->name = $name;
+        $this->date = $date;
     }
 
     public static function boot()
@@ -25,8 +27,8 @@ class MonthFilter extends FilterComponent
     public function render()
     {
         $selected = self::value()[$this->name] ?? [];
-        $selectedMonth = $selected['m'] ?? (isset($date) ? $date->month : null) ?? Carbon::today()->month;
-        $selectedYear = $selected['y'] ?? (isset($date) ? $date->year : null) ?? Carbon::today()->year;
+        $selectedMonth = $selected['m'] ?? (isset($this->date) ? $this->date->month : null) ?? Carbon::today()->month;
+        $selectedYear = $selected['y'] ?? (isset($this->date) ? $this->date->year : null) ?? Carbon::today()->year;
         $years = range(2017, Carbon::today()->year);
         $years = array_combine($years, $years);
         $months = [];
@@ -44,7 +46,7 @@ class MonthFilter extends FilterComponent
                 $date = Carbon::create($values['y'], $values['m'], 1);
                 $aqf->call($month, $query, $date);
             }
-        } elseif ($aqf->defaults()->defaultMonthDates !== null && !empty($aqf->defaults()->defaultMonthDates)) {
+        } elseif ($aqf->defaults()->defaultMonthDates !== null) {
             foreach ($aqf->defaults()->defaultMonthDates as $month => $date) {
                 $aqf->call($month, $query, $date);
             }
