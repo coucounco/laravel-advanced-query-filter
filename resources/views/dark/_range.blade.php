@@ -7,7 +7,7 @@
 @endif
 
         <div class="row gutters-tiny">
-            <div class="{{ isset($range_field) ? 'col-lg-6' : 'col-lg-12' }}">
+            <div class="{{ isset($rangeField) ? 'col-lg-6' : 'col-lg-12' }}">
                 <div class="form-group">
                     @if(!isset($inline) || !$inline)
                         {{ Form::label('range_input', __('label.range')) }}
@@ -69,12 +69,12 @@
                     </script>
                 </div>
             </div>
-            @if (isset($range_field))
+            @if (isset($rangeField))
                 @php
                     $selected = $value[3] ?? [];
                 @endphp
                 <div class="col-lg-6">
-                    {{ Form::cselect('range_field', $range_field, $selected, ['label' => __('Searchable range field')]) }}
+                    {{ Form::cselect('range_field', $rangeField, $selected, ['label' => __('Searchable range field')]) }}
                 </div>
             @endif
         </div>
