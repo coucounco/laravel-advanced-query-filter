@@ -96,6 +96,7 @@ abstract class AdvancedQueryFilter
                 $opt['view'],
                 [
                     $opt['var_name'] => $data,
+                    'data' => $opt['data'] ?? []
                 ],
                 [],
                 $opt['configuration']
