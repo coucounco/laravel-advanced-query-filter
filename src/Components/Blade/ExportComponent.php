@@ -24,6 +24,6 @@ class ExportComponent extends Component
 
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'.blade._export');
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'.blade._export');
     }
 }

@@ -1,1 +1,1 @@
-<a href="{{ QueryFilterUrl::cleanUrl() }}" class="btn btn-light">{{ __('action.clear') }}</a>
+<a href="{{ QueryFilterUrl::cleanUrl() }}" class="btn btn-light">{{ __('Clear') }}</a>

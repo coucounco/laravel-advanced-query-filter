@@ -24,7 +24,7 @@ class PlainTextFilter extends FilterComponent
 
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'._plain');
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._plain');
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

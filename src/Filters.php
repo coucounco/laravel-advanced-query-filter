@@ -14,7 +14,9 @@ use rohsyl\LaravelAdvancedQueryFilter\Components\FilterComponent;
  * @method static FilterContainer[] getFilters()
  * @method static FilterContainer getFilter($name)
  * @method static void theme(string $name)
+ * @method static void viewNamespace(string $name)
  * @method static string getTheme()
+ * @method static string getViewNamespace()
  *
  * @see FilterService
  */

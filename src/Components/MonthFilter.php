@@ -35,7 +35,7 @@ class MonthFilter extends FilterComponent
         foreach(range(1, 12) as $i) {
             $months[$i] = Carbon::create($selectedYear, $i, 1)->format('F');
         }
-        return view('laravel_aqf::'.Filters::getTheme().'._month', compact('years', 'months', 'selectedYear', 'selectedMonth'));
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._month', compact('years', 'months', 'selectedYear', 'selectedMonth'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

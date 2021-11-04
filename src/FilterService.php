@@ -21,6 +21,7 @@ class FilterService
     private $filters;
     private $request;
     private $themeName;
+    private $viewNamespace;
 
     public function __construct()
     {
@@ -86,12 +87,21 @@ class FilterService
         $this->themeName = $name;
     }
 
+    public function viewNamespace(string $viewNamespace = null) {
+        $this->viewNamespace = $viewNamespace;
+    }
+
+
     /**
      * @return mixed
      */
     public function getTheme()
     {
         return $this->themeName ?? 'default';
+    }
+
+    public function getViewNamespace() {
+        return $this->viewNamespace ?? 'laravel_aqf';
     }
 
     public function registerFilterComponent($className) {

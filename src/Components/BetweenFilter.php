@@ -36,7 +36,7 @@ class BetweenFilter extends FilterComponent
         $value = self::value();
         $min = $value[$this->name]['min'] ?? null;
         $max = $value[$this->name]['max'] ?? null;
-        return view('laravel_aqf::'.Filters::getTheme().'._between', compact('min', 'max'));
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._between', compact('min', 'max'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

@@ -24,6 +24,6 @@ class ExportPdfComponent extends Component
 
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'.blade._export_pdf');
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'.blade._export_pdf');
     }
 }

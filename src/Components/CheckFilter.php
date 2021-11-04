@@ -27,7 +27,7 @@ class CheckFilter extends FilterComponent
 
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'._check')->with([
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._check')->with([
             'check'  => $this->check,
             'label'   => $this->label,
             'default' => $this->default,

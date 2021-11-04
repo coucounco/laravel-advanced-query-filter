@@ -26,7 +26,7 @@ class CardFilter extends FilterComponent
     public function render()
     {
         $selected = Filters::getFilter(CardsFilter::class)->value();
-        return view('laravel_aqf::'.Filters::getTheme().'._card', compact('selected'))->with([
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._card', compact('selected'))->with([
             'name' => $this->name,
             'default' => $this->default,
             'label' => $this->label,

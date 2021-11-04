@@ -17,6 +17,6 @@ class MenuToggleComponent extends Component
 
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'.blade._menu_toggle');
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'.blade._menu_toggle');
     }
 }

@@ -34,7 +34,7 @@ class ModelFilter extends FilterComponent
     public function render()
     {
         $selected = self::value();
-        return view('laravel_aqf::'.Filters::getTheme().'._model', compact('selected'));
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._model', compact('selected'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

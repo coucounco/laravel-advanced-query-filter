@@ -1,1 +1,1 @@
-<button class="btn btn-primary" type="submit">{{ __('action.filter') }}</button>
+<button class="btn btn-primary" type="submit">{{ __('Filter') }}</button>

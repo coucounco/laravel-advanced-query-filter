@@ -16,6 +16,6 @@ class ButtonsComponent extends Component
 
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'.blade._buttons');
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'.blade._buttons');
     }
 }

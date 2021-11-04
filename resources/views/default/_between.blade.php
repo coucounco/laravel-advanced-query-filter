@@ -1,22 +1,19 @@
 @if(!isset($inline) || !$inline)
-<div class="block">
-    <div class="block-content pt-3">
+    <div class="card">
+        <div class="card-body">
 @endif
-
-    @if(!isset($inline) || !$inline)
-    {{ Form::label('between['.$name.']', $label ?? __('label.range_between')) }}
-    @endif
-    <div class="row gutters-tiny">
-        <div class="col-sm-6">
-            {{ Form::onumber('between['.$name.'][min]', $min ?? null, null, ['placeholder' => 'Min', 'no-label' => true]) }}
-        </div>
-        <div class="col-sm-6">
-            {{ Form::onumber('between['.$name.'][max]', $max ?? null, null, ['placeholder' => 'Max', 'no-label' => true]) }}
-        </div>
-    </div>
-
-
+            @if(!isset($inline) || !$inline)
+                <label for="between[{{ $name }}]">{{ $label ?? __('Range between') }}</label>
+            @endif
+            <div class="row gutters-tiny">
+                <div class="col-sm-6">
+                    <input type="number" name="between[{{ $name }}][min]" placeholder="Min" value="{{ $min ?? null }}"
+                </div>
+                <div class="col-sm-6">
+                    <input type="number" name="between[{{ $name }}][max]" placeholder="Max" value="{{ $max ?? null }}"
+                </div>
+            </div>
 @if(!isset($inline) || !$inline)
+        </div>
     </div>
-</div>
 @endif

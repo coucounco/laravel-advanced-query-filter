@@ -17,6 +17,6 @@ class PaginationComponent extends Component
     public function render()
     {
         $selectedPagination = request()->has('pagination') ? request()->input('pagination') : $this->default;
-        return view('laravel_aqf::'.Filters::getTheme().'.blade._pagination', compact('selectedPagination'));
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'.blade._pagination', compact('selectedPagination'));
     }
 }

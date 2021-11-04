@@ -1,5 +1,8 @@
-<div class="block">
-    <div class="block-content pt-3">
-        {{ Form::otext('plain', $value(), null, ['label' => __('Search'), 'helper' => isset($helper) ? $helper : null]) }}
+<div class="card">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="plain">{{ $label ?? __('Search') }}</label>
+            <input type="text" class="form-control" name="plain" value="{{ $value() }}" />
+        </div>
     </div>
 </div>

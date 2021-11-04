@@ -42,7 +42,7 @@ class RangeFilter extends FilterComponent
         if(isset($start) && isset($end)) {
             $range = $start->format(\rohsyl\LaravelAdvancedQueryFilter\Filters::DATEFORMAT) . ',' . $end->format(\rohsyl\LaravelAdvancedQueryFilter\Filters::DATEFORMAT);
         }
-        return view('laravel_aqf::'.Filters::getTheme().'._range', compact('range', 'start', 'end'));
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._range', compact('range', 'start', 'end'));
     }
 
     public static function filter(AdvancedQueryFilter $aqf, Builder $query)

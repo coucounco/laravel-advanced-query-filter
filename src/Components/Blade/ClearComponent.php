@@ -9,6 +9,6 @@ class ClearComponent extends Component
 {
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'.blade._clear');
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'.blade._clear');
     }
 }

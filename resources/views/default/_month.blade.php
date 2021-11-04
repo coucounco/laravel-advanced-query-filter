@@ -14,10 +14,18 @@
         <label>Month</label>
         <div class="row gutters-tiny">
             <div class="col-md-8">
-                {{ Form::cselect('m['.$name.'][m]', $months, $selectedMonth, ['no-label' => true]) }}
+                <select name="{{ 'm['.$name.'][m]' }}" class="form-control">
+                    @foreach($months as $value => $label)
+                        <option value="{{ $value }}" @if($selectedMonth == $value) selected @endif>{{ $label }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-4">
-                {{ Form::cselect('m['.$name.'][y]', $years, $selectedYear, ['no-label' => true]) }}
+                <select name="{{ 'm['.$name.'][y]' }}" class="form-control">
+                    @foreach($years as $value => $label)
+                        <option value="{{ $value }}" @if($selectedYear == $value) selected @endif>{{ $label }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>

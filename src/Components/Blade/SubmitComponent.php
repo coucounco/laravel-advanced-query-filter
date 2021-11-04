@@ -9,6 +9,6 @@ class SubmitComponent extends Component
 {
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'.blade._submit');
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'.blade._submit');
     }
 }

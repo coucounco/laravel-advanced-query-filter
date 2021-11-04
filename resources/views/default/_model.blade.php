@@ -3,10 +3,11 @@
         @php
             $selected = request()->has('model') && isset(request()->model[$name]) ? request()->model[$name] : [];
         @endphp
-        @if (!isset($multiselect) || $multiselect)
-            {{ Form::cselectmultiple('model['.$name.']', $list, $selected, ['label' => __('label.'.$name)]) }}
-        @else
-            {{ Form::cselect('model['.$name.']', $list, $selected, ['label' => __('label.'.$name)]) }}
-        @endif
+        <label for="{{ 'model['.$name.']' }}">{{ ucfirst($name) }}</label>
+        <select name="{{ 'model['.$name.']' }}" id="{{ 'model['.$name.']' }}" class="form-control" @if (!isset($multiselect) || $multiselect) multiple @endif>
+            @foreach($list as $value => $label)
+                <option value="{{ $value }}" @if($selected == $value) selected @endif>{{ $label }}</option>
+            @endforeach
+        </select>
     </div>
 </div>

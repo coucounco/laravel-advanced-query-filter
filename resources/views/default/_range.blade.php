@@ -1,19 +1,15 @@
-@php
-@endphp
-
 @if(!isset($inline) || !$inline)
 <div class="block">
     <div class="block-content pt-3">
 @endif
-
         <div class="row gutters-tiny">
             <div class="{{ isset($range_field) ? 'col-lg-6' : 'col-lg-12' }}">
                 <div class="form-group">
                     @if(!isset($inline) || !$inline)
-                        {{ Form::label('range_input', __('label.range')) }}
+                        <label for="range_input">Range</label>
                     @endif
                     <input type="text" id="range_input" autocomplete="off" class="form-control form-control-lg" />
-                    {{ Form::hidden('range', $range, ['id' => 'range']) }}
+                    <input type="hidden" name="range" id="range" value="{{ $range }}">
                     <script type="text/javascript">
                         $(function () {
                             let range = $('#range').val();
@@ -63,8 +59,6 @@
                                 })
                             @endif
                             ;
-
-
                         });
                     </script>
                 </div>
@@ -74,12 +68,17 @@
                     $selected = $value[3] ?? [];
                 @endphp
                 <div class="col-lg-6">
-                    {{ Form::cselect('range_field', $range_field, $selected, ['label' => __('Searchable range field')]) }}
+                    <div class="form-group">
+                        <label for="range_field">Searchable range field</label>
+                        <select name="range_field" id="range_field" class="form-control">
+                            @foreach($range_field as $value => $label)
+                                <option value="{{ $value }}" @if($selected == $value) selected @endif>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             @endif
         </div>
-
-
 @if(!isset($inline) || !$inline)
     </div>
 </div>

@@ -17,7 +17,7 @@ class ChecksFilter extends FilterComponent
 
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'._checks');
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._checks');
     }
 
     public static function boot()

@@ -24,7 +24,7 @@ class CardUrlFilter extends FilterComponent
      */
     public function render()
     {
-        return view('laravel_aqf::'.Filters::getTheme().'._card_url')->with([
+        return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._card_url')->with([
             'url'   => $this->url,
             'label' => $this->label,
         ]);
