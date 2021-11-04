@@ -72,11 +72,7 @@ class RangeFilter extends FilterComponent
      */
     public static function value()
     {
-        $range = null;
-        if (self::request()->has('range')) {
-            $range = self::getRangeDates();
-        }
-        return $range;
+        return self::getRangeDates();
     }
 
     /**
@@ -84,12 +80,27 @@ class RangeFilter extends FilterComponent
      */
     private static function getRangeDates()
     {
-        $range = self::request()->input('range');
+        $range = old(self::queryStringName()) ?? self::request()->input(self::queryStringName());
+
+        if(!isset($range)) {
+            return null;
+        }
+
         $dates = explode(',', $range);
         $from = isset($dates[0]) && ! empty($dates[0]) ? Carbon::parse($dates[0]) : null;
         $to = isset($dates[1]) && ! empty($dates[1]) ? Carbon::parse($dates[1]) : null;
-        $range_field = self::request()->input('range_field');
+        $range_field = self::request()->input(self::rangeFieldQueryStringName());
 
         return [$from, $to, $range_field];
+    }
+
+    public static function queryStringName() : string
+    {
+        return 'range';
+    }
+
+    public static function rangeFieldQueryStringName() : string
+    {
+        return 'range_field';
     }
 }

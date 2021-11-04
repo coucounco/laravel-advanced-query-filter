@@ -52,9 +52,14 @@ class BetweenFilter extends FilterComponent
     public static function value()
     {
         $betweens = null;
-        if (self::request()->has('between')) {
-            $betweens = self::request()->input('between');
+        if (self::request()->has(self::queryStringName())) {
+            $betweens = self::request()->input(self::queryStringName());
         }
         return $betweens;
+    }
+
+    public static function queryStringName() : string
+    {
+        return 'between';
     }
 }

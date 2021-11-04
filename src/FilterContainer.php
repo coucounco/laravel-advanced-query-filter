@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method mixed value()
  * @method mixed boot()
  * @method mixed filter(AdvancedQueryFilter $aqf, Builder $query)
+ * @method string queryStringName()
  *
  */
 class FilterContainer

@@ -38,9 +38,14 @@ class PlainTextFilter extends FilterComponent
     public static function value()
     {
         $text = null;
-        if (self::request()->has('plain')) {
-            $text = self::request()->input('plain');
+        if (self::request()->has(self::queryStringName())) {
+            $text = self::request()->input(self::queryStringName());
         }
         return $text;
+    }
+
+    public static function queryStringName(): string
+    {
+        return 'plain';
     }
 }

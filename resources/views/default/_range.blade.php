@@ -35,12 +35,6 @@
                                         @if(isset($config_ranges))
                                             {{ $config_ranges }}
                                         @endif
-                                        'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
-                                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                                        'This Year': [moment().startOf('year'), moment().endOf('year')],
-                                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                                        'Next Year': [moment().add(1, 'year').startOf('year'), moment().add(1, 'year').endOf('year')],
-                                        'Next Month': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')],
                                     },
                                     locale: {
                                         cancelLabel: 'Clear',

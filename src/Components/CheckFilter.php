@@ -37,4 +37,9 @@ class CheckFilter extends FilterComponent
     public static function boot() {}
     public static function filter(AdvancedQueryFilter $aqf, Builder $query) {}
     public static function value() {}
+
+    public static function queryStringName(): string
+    {
+        return 'check';
+    }
 }

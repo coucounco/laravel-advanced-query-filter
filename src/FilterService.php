@@ -45,6 +45,14 @@ class FilterService
         return $this->filters;
     }
 
+    public function getFiltersQueryString() {
+        $queryStrings = [];
+        foreach($this->getFilters() as $filter) {
+            $queryStrings[] = $filter->queryStringName();
+        }
+        return $queryStrings;
+    }
+
     /**
      * @param $name
      * @return null|FilterContainer

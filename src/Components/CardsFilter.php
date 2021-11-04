@@ -40,10 +40,15 @@ class CardsFilter extends FilterComponent
 
     public static function value() {
         $filter = null;
-        if (self::request()->has('filter')) {
-            $filter = self::request()->input('filter');
+        if (self::request()->has(self::queryStringName())) {
+            $filter = self::request()->input(self::queryStringName());
         }
 
         return $filter;
+    }
+
+    public static function queryStringName(): string
+    {
+        return 'filter';
     }
 }

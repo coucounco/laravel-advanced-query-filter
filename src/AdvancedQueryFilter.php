@@ -1,6 +1,8 @@
 <?php
 namespace rohsyl\LaravelAdvancedQueryFilter;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 use rohsyl\LaravelAdvancedQueryFilter\Export\FilterExporter;
 use Maatwebsite\Excel\Facades\Excel;
 use Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
@@ -14,6 +16,12 @@ abstract class AdvancedQueryFilter
 
     protected $scopes = [];
     protected $pagination = null;
+    protected $validation = false;
+
+    /**
+     * @var \Illuminate\Contracts\Validation\Validator
+     */
+    private $validator;
 
     public function __construct()
     {
@@ -24,6 +32,10 @@ abstract class AdvancedQueryFilter
         if(method_exists($this, $method)) {
             $this->$method(...$args);
         }
+    }
+
+    public function rules() {
+        return null;
     }
 
     public function filter()
@@ -173,5 +185,39 @@ abstract class AdvancedQueryFilter
     {
         Filters::setRequest($request);
         return $this;
+    }
+
+    public function validate() {
+        if($this->validation) {
+            $request = Filters::getRequest();
+            $queryStrings = Filters::getFiltersQueryString();
+            $rules = $this->rules();
+            $values = array_filter($request->all($queryStrings));
+
+            if(isset($rules) && !empty($rules) && isset($values) && !empty($values)) {
+                $this->validator = Validator::make($values, $rules);
+            }
+            else {
+                $this->validator = null;
+            }
+        }
+    }
+
+    public function redirectBack() {
+        return redirect()
+            ->to(QueryFilterUrl::cleanUrl())
+            ->withErrors($this->validator)
+            ->withInput();
+    }
+
+    /**
+     * @return array|false
+     */
+    public function validationFails() {
+        if(!isset($this->validator)) {
+            return false;
+        }
+
+        return $this->validator->fails();
     }
 }

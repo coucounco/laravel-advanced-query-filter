@@ -20,6 +20,8 @@ abstract class FilterComponent extends Component
      */
     public static abstract function value();
 
+    public static abstract function queryStringName() : string;
+
     /**
      * @return Request
      */

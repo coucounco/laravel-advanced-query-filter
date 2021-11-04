@@ -56,9 +56,14 @@ class MonthFilter extends FilterComponent
     public static function value()
     {
         $months = null;
-        if (self::request()->has('m')) {
-            $months = self::request()->input('m');
+        if (self::request()->has(self::queryStringName())) {
+            $months = self::request()->input(self::queryStringName());
         }
         return $months;
+    }
+
+    public static function queryStringName(): string
+    {
+        return 'm';
     }
 }

@@ -53,9 +53,14 @@ class ChecksFilter extends FilterComponent
     public static function value()
     {
         $checks = null;
-        if (self::request()->has('check')) {
-            $checks = self::request()->input('check');
+        if (self::request()->has(self::queryStringName())) {
+            $checks = self::request()->input(self::queryStringName());
         }
         return $checks;
+    }
+
+    public static function queryStringName(): string
+    {
+        return 'check';
     }
 }

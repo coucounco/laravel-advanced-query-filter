@@ -33,7 +33,7 @@ class ModelFilter extends FilterComponent
      */
     public function render()
     {
-        $selected = self::value();
+        $selected = old(self::queryStringName())[$this->name] ?? self::value()[$this->name] ?? null;
         return view(Filters::getViewNamespace().'::'.Filters::getTheme().'._model', compact('selected'));
     }
 
@@ -50,9 +50,14 @@ class ModelFilter extends FilterComponent
     public static function value()
     {
         $models = null;
-        if (self::request()->has('model')) {
-            $models = self::request()->input('model');
+        if (self::request()->has(self::queryStringName())) {
+            $models = self::request()->input(self::queryStringName());
         }
         return $models;
+    }
+
+    public static function queryStringName(): string
+    {
+        return 'model';
     }
 }
