@@ -13,13 +13,13 @@ class RangeFilter extends FilterComponent
     public $inline;
     public $start;
     public $end;
-    public $range_field;
+    public $rangeField;
 
-    public function __construct($start = null, $end = null, $range_field = null, $inline = false)
+    public function __construct($start = null, $end = null, $rangeField = null, $inline = false)
     {
         $this->start = $start;
         $this->end = $end;
-        $this->range_field = $range_field;
+        $this->rangeField = $rangeField;
         $this->inline = $inline;
     }
 

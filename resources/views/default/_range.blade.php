@@ -3,7 +3,7 @@
     <div class="block-content pt-3">
 @endif
         <div class="row gutters-tiny">
-            <div class="{{ isset($range_field) ? 'col-lg-6' : 'col-lg-12' }}">
+            <div class="{{ isset($rangeField) ? 'col-lg-6' : 'col-lg-12' }}">
                 <div class="form-group">
                     @if(!isset($inline) || !$inline)
                         <label for="range_input">Range</label>
@@ -63,7 +63,7 @@
                     </script>
                 </div>
             </div>
-            @if (isset($range_field))
+            @if (isset($rangeField))
                 @php
                     $selected = $value[3] ?? [];
                 @endphp
