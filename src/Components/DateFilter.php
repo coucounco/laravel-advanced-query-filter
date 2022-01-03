@@ -11,11 +11,13 @@ use rohsyl\LaravelAdvancedQueryFilter\Filters;
 class DateFilter extends FilterComponent
 {
     public $name;
+    public $label;
     public $date;
 
-    public function __construct($name, $date = null)
+    public function __construct($name, $label = null, $date = null)
     {
         $this->name = $name;
+        $this->label = $label;
         $this->date = $date;
     }
 

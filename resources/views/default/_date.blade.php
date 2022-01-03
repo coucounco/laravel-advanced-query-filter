@@ -1,7 +1,7 @@
 <div class="block">
     <div class="block-content pt-3">
         <div class="form-group">
-            <label for="date_{{ $name }}">Date</label>
+            <label for="date_{{ $name }}">{{ $label ?? 'Date' }}</label>
             <input type="text" id="date_{{ $name }}" name="date[{{ $name }}]" value="{{ isset($selected) ? $selected : null }}" autocomplete="off" class="form-control form-control-lg" />
             <script type="text/javascript">
                 $(function () {
