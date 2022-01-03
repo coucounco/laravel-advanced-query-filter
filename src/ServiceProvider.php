@@ -8,6 +8,7 @@ use rohsyl\LaravelAdvancedQueryFilter\Components\AccountingRangeFilter;
 use rohsyl\LaravelAdvancedQueryFilter\Components\BetweenFilter;
 use rohsyl\LaravelAdvancedQueryFilter\Components\CardsFilter;
 use rohsyl\LaravelAdvancedQueryFilter\Components\ChecksFilter;
+use rohsyl\LaravelAdvancedQueryFilter\Components\DateFilter;
 use rohsyl\LaravelAdvancedQueryFilter\Components\Export;
 use rohsyl\LaravelAdvancedQueryFilter\Components\ExportPdf;
 use rohsyl\LaravelAdvancedQueryFilter\Components\ModelFilter;
@@ -24,6 +25,7 @@ class ServiceProvider extends SP
         ModelFilter::class,
         RangeFilter::class,
         MonthFilter::class,
+        DateFilter::class,
         BetweenFilter::class,
         PlainTextFilter::class,
         ChecksFilter::class,
