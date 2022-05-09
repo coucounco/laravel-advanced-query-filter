@@ -21,14 +21,14 @@ use rohsyl\LaravelAdvancedQueryFilter\Console\CreateAdvancedQueryFilterCommand;
 class ServiceProvider extends SP
 {
     private $filters = [
-        CardsFilter::class,
-        ModelFilter::class,
         RangeFilter::class,
         MonthFilter::class,
         DateFilter::class,
+        CardsFilter::class,
+        ModelFilter::class,
         BetweenFilter::class,
-        PlainTextFilter::class,
         ChecksFilter::class,
+        PlainTextFilter::class,
     ];
 
     public function boot()
