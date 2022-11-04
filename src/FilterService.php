@@ -99,6 +99,15 @@ class FilterService
         $this->viewNamespace = $viewNamespace;
     }
 
+    public function isFilterActive($name) {
+        $request = $this->getRequest();
+
+        return $request->has($name) && !empty($request->input($name));
+    }
+
+    public function classFilterActive($name, $class) {
+        return $this->isFilterActive($name) ? $class : '';
+    }
 
     /**
      * @return mixed

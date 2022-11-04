@@ -18,6 +18,8 @@ use rohsyl\LaravelAdvancedQueryFilter\Components\FilterComponent;
  * @method static void viewNamespace(string $name)
  * @method static string getTheme()
  * @method static string getViewNamespace()
+ * @method static boolean isFilterActive($name)
+ * @method static string classFilterActive($name, $class)
  *
  * @see FilterService
  */

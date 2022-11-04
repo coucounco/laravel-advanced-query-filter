@@ -18,6 +18,8 @@ abstract class AdvancedQueryFilter
     protected $pagination = null;
     protected $validation = false;
 
+    private $order = null;
+
     /**
      * @var \Illuminate\Contracts\Validation\Validator
      */
@@ -38,12 +40,29 @@ abstract class AdvancedQueryFilter
         return null;
     }
 
+    protected function orderFilters($order) : void {
+        $this->order = $order;
+    }
+
+    protected function inOrder() : ?array {
+        return $this->order;
+    }
+
     public function filter()
     {
         $request = Filters::getRequest();
         $query = $this->query();
 
-        foreach(Filters::getFilters() as $filter) {
+        $filters = Filters::getFilters();
+
+        // the execution order can be changed by the user to improve and
+        // optimize the query execution.
+        $order = $this->inOrder();
+        if(isset($order) && is_array($order) && !empty($order)) {
+            $filters = $this->sort($filters, $order);
+        }
+
+        foreach($filters as $filter) {
             $filter->filter($this, $query);
         }
 
@@ -66,6 +85,15 @@ abstract class AdvancedQueryFilter
         } else {
             return $query->get();
         }
+    }
+
+    private function sort(array $filters, array $order) {
+        $ordered = array_merge($order, array_diff(array_keys($filters), $order));
+        $out = [];
+        foreach($ordered as $o) {
+            $out[$o] = $filters[$o];
+        }
+        return $out;
     }
 
     public function export()
