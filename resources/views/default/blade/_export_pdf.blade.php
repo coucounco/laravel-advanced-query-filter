@@ -8,7 +8,11 @@
 <script>
     function export_{{ $name }}() {
         let form = document.getElementById('form-filters');
-        let data = $(form).serialize();
+        let formdata = new FormData(form);
+        @if(isset($prepareDataFunction))
+            formdata = {{ $prepareDataFunction }}(formdata);
+        @endif
+        let data = new URLSearchParams(formdata).toString();
         window.location.href = '{{ $route }}' + '?' + data + '&export_pdf=' + '{{ $name }}';
     }
 </script>

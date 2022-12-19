@@ -13,13 +13,16 @@ class ExportComponent extends Component
     public $helper;
     public $icon;
 
-    public function __construct($name, $route, $label = null, $helper = null, $icon = null)
+    public $prepareDataFunction;
+
+    public function __construct($name, $route, $label = null, $helper = null, $icon = null, $prepareDataFunction = null)
     {
         $this->name = $name;
         $this->route = $route;
         $this->label = $label;
         $this->helper = $helper;
         $this->icon = $icon;
+        $this->prepareDataFunction = $prepareDataFunction;
     }
 
     public function render()
