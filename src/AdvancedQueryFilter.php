@@ -5,7 +5,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use rohsyl\LaravelAdvancedQueryFilter\Export\FilterExporter;
 use Maatwebsite\Excel\Facades\Excel;
-use Meneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 abstract class AdvancedQueryFilter
 {
