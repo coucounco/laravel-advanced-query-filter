@@ -80,11 +80,17 @@ abstract class AdvancedQueryFilter
                 $this->pagination($request->input('pagination'));
             }
 
-            return $query->paginate($this->pagination)
+            $out = $query->paginate($this->pagination)
                 ->withPath(QueryFilterUrl::url());
         } else {
-            return $query->get();
+            $out = $query->get();
         }
+
+        return $this->after($out);
+    }
+
+    public function after($collection) {
+        return $collection;
     }
 
     private function sort(array $filters, array $order) {
